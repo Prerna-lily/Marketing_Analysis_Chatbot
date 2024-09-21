@@ -18,3 +18,5 @@ There are 2 files which contain the code of the chatbot:
 The question_answering one code gives general answers to the user's question related to the marketing data.
 
 The detailed_que_ans code file gives the stats, filter, summary and trends of the marketing analysis and also answers the user's questions.
+
+I have used a small subset of data which contains 2K entries, the actual dataset contains 2 Lakh entries.
