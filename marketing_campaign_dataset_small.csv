@@ -1,0 +1,21 @@
+Campaign_ID,Company,Campaign_Type,Target_Audience,Duration,Channel_Used,Conversion_Rate,Acquisition_Cost,ROI,Location,Language,Clicks,Impressions,Engagement_Score,Customer_Segment,Date
+1,Innovate Industries,Email,Men 18-24,30 days,Google Ads,0.04,"$16,174.00",6.29,Chicago,Spanish,506,1922,6,Health & Wellness,01-01-2021
+2,NexGen Systems,Email,Women 35-44,60 days,Google Ads,0.12,"$11,566.00",5.61,New York,German,116,7523,7,Fashionistas,02-01-2021
+3,Alpha Innovations,Influencer,Men 25-34,30 days,YouTube,0.07,"$10,200.00",7.18,Los Angeles,French,584,7698,1,Outdoor Adventurers,03-01-2021
+4,DataTech Solutions,Display,All Ages,60 days,YouTube,0.11,"$12,724.00",5.55,Miami,Mandarin,217,1820,7,Health & Wellness,04-01-2021
+5,NexGen Systems,Email,Men 25-34,15 days,YouTube,0.05,"$16,452.00",6.5,Los Angeles,Mandarin,379,4201,3,Health & Wellness,05-01-2021
+6,DataTech Solutions,Display,All Ages,15 days,Instagram,0.07,"$9,716.00",4.36,New York,German,100,1643,1,Foodies,06-01-2021
+7,NexGen Systems,Email,Women 35-44,60 days,Website,0.13,"$11,067.00",2.86,Los Angeles,Spanish,817,8749,10,Tech Enthusiasts,07-01-2021
+8,DataTech Solutions,Search,Men 18-24,45 days,Google Ads,0.08,"$13,280.00",5.55,Los Angeles,Mandarin,624,7854,7,Outdoor Adventurers,08-01-2021
+9,Alpha Innovations,Social Media,Women 35-44,15 days,Facebook,0.09,"$18,066.00",6.73,Chicago,German,861,1754,6,Tech Enthusiasts,09-01-2021
+10,TechCorp,Email,Women 35-44,15 days,Instagram,0.09,"$13,766.00",3.78,Los Angeles,English,642,3856,3,Tech Enthusiasts,10-01-2021
+11,NexGen Systems,Display,Men 25-34,45 days,Email,0.12,"$8,590.00",3.49,New York,Spanish,321,6628,10,Tech Enthusiasts,11-01-2021
+12,Innovate Industries,Influencer,Men 25-34,60 days,Google Ads,0.05,"$17,502.00",3.59,Los Angeles,Mandarin,659,8948,1,Foodies,12-01-2021
+13,TechCorp,Social Media,Men 25-34,60 days,Facebook,0.09,"$17,189.00",4.91,Chicago,Mandarin,677,8817,10,Tech Enthusiasts,13-01-2021
+14,TechCorp,Email,Men 25-34,45 days,Instagram,0.14,"$9,975.00",7.06,New York,German,994,2201,4,Health & Wellness,14-01-2021
+15,TechCorp,Display,All Ages,45 days,Website,0.04,"$11,346.00",5.28,Chicago,Spanish,482,8470,1,Outdoor Adventurers,15-01-2021
+16,Innovate Industries,Social Media,Women 35-44,60 days,YouTube,0.11,"$9,407.00",2.91,New York,German,299,1512,5,Health & Wellness,16-01-2021
+17,Innovate Industries,Display,Women 35-44,45 days,Website,0.08,"$5,478.00",4.53,Houston,English,931,2488,3,Fashionistas,17-01-2021
+18,Alpha Innovations,Influencer,Men 18-24,15 days,Instagram,0.14,"$9,485.00",4.48,Miami,French,218,9264,9,Health & Wellness,18-01-2021
+19,Alpha Innovations,Social Media,Men 25-34,60 days,Google Ads,0.07,"$19,224.00",6.08,New York,French,182,5798,1,Foodies,19-01-2021
+20,DataTech Solutions,Influencer,Men 25-34,15 days,Google Ads,0.09,"$10,258.00",3.83,Miami,French,193,3677,1,Tech Enthusiasts,20-01-2021
