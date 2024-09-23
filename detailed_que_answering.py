@@ -14,27 +14,33 @@ nlp_spacy = spacy.load("en_core_web_sm")
 # Load dataset and preprocess it
 df = pd.read_csv('marketing_campaign_dataset_first2K.csv')
 df.columns = df.columns.str.strip()
-df['Acquisition_Cost'] = df['Acquisition_Cost'].replace({'\$': '', ',': ''}, regex=True).astype(float)
+df['Acquisition_Cost'] = df['Acquisition_Cost'].replace(
+    {'\$': '', ',': ''}, regex=True).astype(float)
 
 # Initialize the question-answering pipeline with DistilBERT
-nlp = pipeline('question-answering', model='distilbert-base-uncased-distilled-squad', clean_up_tokenization_spaces=True)
+nlp = pipeline(
+    'question-answering',
+    model='distilbert-base-uncased-distilled-squad',
+    clean_up_tokenization_spaces=True
+)
 
 # Caching previous responses
 response_cache = {}
 
 
 # Function to generate focused context for the question
-# (This function can be improved if needed)
 def generate_context(filtered_df):
     filtered_df = filtered_df.head(10)
     context = "\n".join(
         f"Campaign ID {row['Campaign_ID']} by {row['Company']} is a {row['Campaign_Type']} campaign "
-        f"targeted at {row['Target_Audience']} for {row['Duration']} days. It was conducted in {row['Location']} using {row['Channel_Used']}. "
-        f"The campaign had a conversion rate of {row['Conversion_Rate']}, an acquisition cost of ${row['Acquisition_Cost']:.2f}, "
-        f"and a ROI of {row['ROI']:.2f}."
+        f"targeted at {row['Target_Audience']} for {row['Duration']} days. It was conducted in "
+        f"{row['Location']} using {row['Channel_Used']}. The campaign had a conversion rate of "
+        f"{row['Conversion_Rate']}, an acquisition cost of ${row['Acquisition_Cost']:.2f}, and "
+        f"a ROI of {row['ROI']:.2f}."
         for _, row in filtered_df.iterrows()
     )
     return context
+
 
 # Function to visualize campaign trends
 def visualize_trends():
@@ -46,6 +52,7 @@ def visualize_trends():
     plt.xlabel('Date')
     plt.tight_layout()
     plt.show()
+
 
 # Function to summarize general trends in the data
 def summarize_trends():
@@ -63,6 +70,7 @@ def summarize_trends():
 
     return "\n".join(trend_summary)
 
+
 # Function to provide insights on the effectiveness of different campaign types
 def campaign_effectiveness_insights():
     effectiveness_summary = []
@@ -75,45 +83,37 @@ def campaign_effectiveness_insights():
         )
     return "\n".join(effectiveness_summary)
 
+
 # Function to extract an answer based on the question
 def extract_answer(question):
     if question in response_cache:
         return response_cache[question]
 
-    # Handle specific questions about languages and target audiences
-    # ... (previous code) ...
-
-    # Handle general trend questions
-    # ... (previous code) ...
-
-    # **New Logic to answer more complex questions**
+    # New Logic to answer more complex questions
     if "influencer campaign" in question and "highest conversion rate" in question:
-        # Filter influencer campaigns
         influencer_campaigns = df[df['Campaign_Type'] == 'Influencer Marketing Campaign']
-        # Find the campaign with the highest conversion rate
-        # **Correctly find the maximum conversion rate in the filtered dataframe**
         highest_conversion_rate = influencer_campaigns['Conversion_Rate'].max()
-        # **Filter for campaigns with the maximum conversion rate**
-        highest_conversion_campaign = influencer_campaigns[influencer_campaigns['Conversion_Rate'] == highest_conversion_rate]
-        # **Check if the dataframe is empty**
+        highest_conversion_campaign = influencer_campaigns[
+            influencer_campaigns['Conversion_Rate'] == highest_conversion_rate
+        ]
         if not highest_conversion_campaign.empty:
-            # Get the channel used for that campaign
             channel_used = highest_conversion_campaign['Channel_Used'].iloc[0]
             return f"The channel used for the influencer campaign with the highest conversion rate was {channel_used}."
         else:
             return "There are no influencer campaigns with a conversion rate in the dataset."
 
-    # Existing conditions for other questions
     filtered_context = generate_context(df)
     result = nlp(question=question, context=filtered_context)
 
     if result['score'] > 0.1:
         response_cache[question] = result['answer']
     else:
-        response_cache[
-            question] = "That's an interesting question! Have you considered how changing the campaign type affects the ROI?"
+        response_cache[question] = (
+            "That's an interesting question! Have you considered how changing the campaign type affects the ROI?"
+        )
 
     return response_cache[question]
+
 
 # Function to handle "stats" action
 def handle_stats():
@@ -122,35 +122,46 @@ def handle_stats():
     print(f"Average ROI: {average_roi:.2f}")
     print(f"Average Acquisition Cost: ${average_acquisition_cost:.2f}")
 
+
 # Function to handle "filter" action
 def handle_filter():
-    filter_criteria = input("Enter filtering criteria (e.g., 'Campaign_Type == 'Social Media Campaign''): ")
+    filter_criteria = input(
+        "Enter filtering criteria (e.g., 'Campaign_Type == 'Social Media Campaign''): "
+    )
     try:
         filtered_df = df.query(filter_criteria)
         print("Filtered data:")
         print(filtered_df)
-    except:
+    except ValueError:
         print("Invalid filtering criteria.")
+
 
 # Function to handle "summary" action
 def handle_summary():
     print(summarize_trends())
 
+
 # Function to handle "trends" action
 def handle_trends():
     visualize_trends()
+
 
 # Function to handle "sentiment" action
 def handle_sentiment():
     from textblob import TextBlob
     sentiment_results = []
+
+    # Use 'Target_Audience' for sentiment analysis
     for _, row in df.iterrows():
-        blob = TextBlob(row['Campaign_Description'])
+        blob = TextBlob(row['Target_Audience'])
         sentiment_results.append(
-            f"Campaign ID {row['Campaign_ID']}: Sentiment - Polarity: {blob.sentiment.polarity}, Subjectivity: {blob.sentiment.subjectivity}"
+            f"Campaign ID {row['Campaign_ID']}: Sentiment - Polarity: {blob.sentiment.polarity}, "
+            f"Subjectivity: {blob.sentiment.subjectivity}"
         )
+
     print("Sentiment Analysis:")
     print("\n".join(sentiment_results))
+
 
 # Main function to run the chatbot
 def main():
