@@ -16,7 +16,9 @@ nlp = pipeline('question-answering', model='mrm8488/bert-tiny-5-finetuned-squadv
 
 # Function to generate the context from the dataset
 def generate_context(df):
-    # Use string join for efficiency
+    """
+    Generate a context string from the dataframe for answering questions.
+    """
     context = "\n".join(
         f"Campaign ID {row['Campaign_ID']} by {row['Company']} is a {row['Campaign_Type']} campaign "
         f"targeted at {row['Target_Audience']} for {row['Duration']} days. The campaign was run through {row['Channel_Used']} "
@@ -31,6 +33,17 @@ def generate_context(df):
 
 # Function to answer user questions using the model
 def extract_answer(question, context, chunk_size=500):
+    """
+    Extract the best answer for a question using a pre-trained NLP model.
+
+    Args:
+        question (str): The user's question.
+        context (str): The context to search for the answer.
+        chunk_size (int): Size of context chunks for processing.
+
+    Returns:
+        str: The best answer found in the context.
+    """
     context_chunks = [context[i:i + chunk_size] for i in range(0, len(context), chunk_size)]
     best_answer, highest_score = "", 0
 
@@ -48,6 +61,9 @@ context = generate_context(df)
 
 # Function to display campaign statistics
 def campaign_statistics():
+    """
+    Display basic statistics about the campaigns.
+    """
     avg_acquisition_cost = df['Acquisition_Cost'].mean()
     avg_roi = df['ROI'].mean()
     max_roi_campaign = df.loc[df['ROI'].idxmax()]
@@ -55,16 +71,22 @@ def campaign_statistics():
     print(f"\nAverage Acquisition Cost: ${avg_acquisition_cost:.2f}")
     print(f"Average ROI: {avg_roi:.2f}")
     print(
-        f"Campaign with the highest ROI: {max_roi_campaign['Campaign_ID']} with an ROI of {max_roi_campaign['ROI']}\n")
+        f"Campaign with the highest ROI: {max_roi_campaign['Campaign_ID']} "
+        f"with an ROI of {max_roi_campaign['ROI']}\n"
+    )
 
 
 # Function to filter campaigns based on a target criterion
 def filter_campaigns():
+    """
+    Filter campaigns based on user-specified criteria.
+    """
     print("\nFilter options:")
     print("1. Campaign Type")
     print("2. Target Audience")
     print("3. Location")
     print("4. Channel Used")
+
     option = input("Choose a filter option (1-4): ")
 
     filters = {
@@ -78,25 +100,34 @@ def filter_campaigns():
         filter_value = input(f"Enter the {filters[option].replace('_', ' ').lower()}: ")
         filtered = df[df[filters[option]] == filter_value]
         print(
-            f"\nFiltered campaigns:\n{filtered[['Campaign_ID', 'Company', 'Campaign_Type', 'Location', 'Target_Audience']]}")
+            f"\nFiltered campaigns:\n"
+            f"{filtered[['Campaign_ID', 'Company', 'Campaign_Type', 'Location', 'Target_Audience']]}"
+        )
     else:
         print("Invalid option. Returning to main menu.")
 
 
 # Function to summarize data
 def campaign_summary():
+    """
+    Print a summary of the marketing campaign data.
+    """
     print("\nSummary of Marketing Campaign Data:")
     print(df.describe(include='all'))
 
 
 # Main function to run the chatbot
 def main():
+    """
+    Main function to run the marketing campaign chatbot.
+    """
     print("Welcome to the Real-Time Marketing Campaign Chatbot!")
     print("You can ask any question about the marketing campaigns or choose an action.")
     print("Available actions: 'stats', 'filter', 'summary', 'exit'.")
 
     while True:
         user_input = input("\nAsk a question or choose an action: ")
+
         if user_input.lower() == 'exit':
             print("Goodbye!")
             break
